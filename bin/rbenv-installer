@@ -34,11 +34,12 @@ if [ -n "$rbenv" ]; then
   echo "rbenv already seems installed in \`$rbenv'."
   cd "${rbenv%/*}"
 
-  git remote -v 2>/dev/null | grep -q rbenv; then
-  echo "Trying to update with git..."
-  git pull --tags origin master
-  cd ..
-  try_bash_extension
+  if git remote -v 2>/dev/null | grep -q rbenv; then
+    echo "Trying to update with git..."
+    git pull --tags origin master
+    cd ..
+    try_bash_extension
+  fi
 else
   echo "Installing rbenv with git..."
   mkdir -p ~/.rbenv
@@ -62,9 +63,10 @@ if [ -n "$ruby_build" ]; then
   echo "\`rbenv install' command already available in \`$ruby_build'."
   cd "${ruby_build%/*}"
 
-  git remote -v 2>/dev/null | grep -q ruby-build; then
-  echo "Trying to update with git..."
-  git pull origin master
+  if git remote -v 2>/dev/null | grep -q ruby-build; then
+    echo "Trying to update with git..."
+    git pull origin master
+  fi
 else
   echo "Installing ruby-build with git..."
   mkdir -p "${rbenv_root}/plugins"
